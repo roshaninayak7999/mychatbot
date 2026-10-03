@@ -15,17 +15,17 @@
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #667eea, #764ba2);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.chat-app {
+.app {
     width: 95%;
-    max-width: 850px;
+    max-width: 900px;
     height: 92vh;
-    background: white;
+    background: #fff;
     border-radius: 20px;
     overflow: hidden;
     display: flex;
@@ -38,25 +38,25 @@ body {
     padding: 15px 20px;
     border-bottom: 1px solid #eee;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
-.logo-area {
+.brand {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
 .logo {
-    width: 45px;
-    height: 45px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
     background: linear-gradient(135deg,#667eea,#764ba2);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 23px;
 }
 
 .title {
@@ -65,12 +65,12 @@ body {
 }
 
 .status {
-    color: #20a05a;
     font-size: 12px;
     margin-top: 3px;
+    color: #d97706;
 }
 
-.header-buttons {
+.buttons {
     display: flex;
     gap: 8px;
 }
@@ -88,7 +88,7 @@ body {
 }
 
 /* CHAT */
-.messages {
+.chat {
     flex: 1;
     overflow-y: auto;
     padding: 25px;
@@ -98,8 +98,8 @@ body {
 .message {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
     max-width: 85%;
+    margin-bottom: 20px;
 }
 
 .message.user {
@@ -113,22 +113,21 @@ body {
     min-width: 38px;
     border-radius: 50%;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     background: #667eea;
-    color: white;
 }
 
-.message.user .avatar {
+.user .avatar {
     background: #333;
 }
 
-.message-content {
+.content {
     display: flex;
     flex-direction: column;
 }
 
-.message.user .message-content {
+.user .content {
     align-items: flex-end;
 }
 
@@ -140,14 +139,14 @@ body {
     word-break: break-word;
 }
 
-.message.bot .bubble {
+.bot .bubble {
     background: white;
     color: #222;
     border-top-left-radius: 4px;
     box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
 
-.message.user .bubble {
+.user .bubble {
     background: #667eea;
     color: white;
     border-top-right-radius: 4px;
@@ -194,10 +193,10 @@ body {
     border-color: #667eea;
 }
 
-.send-btn {
+.send {
     width: 50px;
     height: 50px;
-    border: none;
+    border: 0;
     border-radius: 50%;
     background: #667eea;
     color: white;
@@ -205,49 +204,43 @@ body {
     cursor: pointer;
 }
 
-.send-btn:hover {
-    background: #5568d9;
-}
-
-.send-btn:disabled {
+.send:disabled {
     opacity: .5;
-    cursor: not-allowed;
 }
 
 /* SETTINGS */
-.settings-overlay {
+.overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.55);
+    background: rgba(0,0,0,.6);
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 100;
 }
 
-.settings-box {
+.settings {
     width: 90%;
-    max-width: 500px;
+    max-width: 480px;
     background: white;
     border-radius: 18px;
     padding: 25px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.3);
 }
 
-.settings-box h2 {
+.settings h2 {
     margin-bottom: 10px;
 }
 
-.settings-box p {
+.settings p {
     color: #666;
     line-height: 1.5;
     font-size: 14px;
     margin-bottom: 15px;
 }
 
-.api-input {
+.key-input {
     width: 100%;
-    height: 45px;
+    height: 46px;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 0 12px;
@@ -255,52 +248,51 @@ body {
     margin-bottom: 15px;
 }
 
-.api-input:focus {
+.key-input:focus {
     border-color: #667eea;
 }
 
-.settings-buttons {
+.settings-actions {
     display: flex;
     gap: 10px;
 }
 
-.save-btn,
-.close-btn {
+.save,
+.cancel {
     flex: 1;
+    border: 0;
     padding: 12px;
-    border: none;
     border-radius: 10px;
     cursor: pointer;
 }
 
-.save-btn {
+.save {
     background: #667eea;
     color: white;
 }
 
-.close-btn {
+.cancel {
     background: #eee;
 }
 
 /* MOBILE */
-@media (max-width: 600px) {
-
+@media(max-width:600px) {
     body {
         align-items: stretch;
     }
 
-    .chat-app {
+    .app {
         width: 100%;
         height: 100vh;
         border-radius: 0;
     }
 
-    .messages {
+    .chat {
         padding: 15px;
     }
 
     .message {
-        max-width: 92%;
+        max-width: 94%;
     }
 }
 </style>
@@ -308,11 +300,11 @@ body {
 
 <body>
 
-<div class="chat-app">
+<div class="app">
 
-    <div class="header">
+    <header class="header">
 
-        <div class="logo-area">
+        <div class="brand">
 
             <div class="logo">🤖</div>
 
@@ -325,7 +317,7 @@ body {
 
         </div>
 
-        <div class="header-buttons">
+        <div class="buttons">
 
             <button
                 class="header-btn"
@@ -341,61 +333,55 @@ body {
 
         </div>
 
-    </div>
+    </header>
 
 
-    <div
-        class="messages"
-        id="messages">
+    <main
+        class="chat"
+        id="chat">
 
         <div class="message bot">
 
             <div class="avatar">🤖</div>
 
-            <div class="message-content">
+            <div class="content">
 
                 <div class="bubble">Hello! 👋
 
 I'm your AI assistant powered by Groq.
 
-Click ⚙️ to enter your API key, then ask me anything!</div>
+Click ⚙️ to add your API key, then send me a message.</div>
 
-                <div class="time">
-                    Now
-                </div>
+                <div class="time">Now</div>
 
             </div>
 
         </div>
 
-    </div>
+    </main>
 
 
     <div
         class="typing"
         id="typing">
-
         🤖 AI is thinking...
-
     </div>
 
 
     <div class="input-area">
 
         <input
-            id="userInput"
+            id="input"
             class="input"
             type="text"
-            placeholder="Type your message..."
+            placeholder="Message your AI..."
             autocomplete="off">
 
         <button
-            id="sendButton"
-            class="send-btn"
+            id="send"
+            class="send"
             onclick="sendMessage()">
-
             ➤
-
         </button>
 
     </div>
@@ -403,44 +389,39 @@ Click ⚙️ to enter your API key, then ask me anything!</div>
 </div>
 
 
-<!-- SETTINGS -->
+<!-- API KEY SETTINGS -->
 
 <div
-    class="settings-overlay"
-    id="settingsOverlay">
+    class="overlay"
+    id="overlay">
 
-    <div class="settings-box">
+    <div class="settings">
 
-        <h2>⚙️ API Settings</h2>
+        <h2>⚙️ Groq API Settings</h2>
 
         <p>
-            Enter your Groq API key. It is kept in this
-            browser session and is not written into the
-            HTML source.
+            Enter your newly rotated Groq API key.
+            The key is kept only in this browser session.
         </p>
 
         <input
-            id="apiKeyInput"
-            class="api-input"
+            id="keyInput"
+            class="key-input"
             type="password"
             placeholder="gsk_...">
 
-        <div class="settings-buttons">
+        <div class="settings-actions">
 
             <button
-                class="save-btn"
-                onclick="saveApiKey()">
-
+                class="save"
+                onclick="saveKey()">
                 Save Key
-
             </button>
 
             <button
-                class="close-btn"
+                class="cancel"
                 onclick="closeSettings()">
-
                 Cancel
-
             </button>
 
         </div>
@@ -452,49 +433,37 @@ Click ⚙️ to enter your API key, then ask me anything!</div>
 
 <script>
 
-/*
-====================================================
- GROQ CONFIGURATION
-====================================================
-*/
+/* =========================================
+   GROQ CONFIG
+========================================= */
 
-const GROQ_API_URL =
+const API_URL =
     "https://api.groq.com/openai/v1/chat/completions";
 
 const MODEL =
     "llama-3.3-70b-versatile";
 
 
-/*
-====================================================
- API KEY
-====================================================
-
-The key is entered through the Settings button.
-
-We intentionally do NOT hard-code the exposed key
-you previously posted.
-====================================================
-*/
+/* =========================================
+   API KEY
+========================================= */
 
 let GROQ_API_KEY =
     sessionStorage.getItem("groq_api_key") || "";
 
 
-/*
-====================================================
- ELEMENTS
-====================================================
-*/
+/* =========================================
+   ELEMENTS
+========================================= */
 
-const messages =
-    document.getElementById("messages");
+const chat =
+    document.getElementById("chat");
 
-const userInput =
-    document.getElementById("userInput");
+const input =
+    document.getElementById("input");
 
-const sendButton =
-    document.getElementById("sendButton");
+const send =
+    document.getElementById("send");
 
 const typing =
     document.getElementById("typing");
@@ -502,79 +471,66 @@ const typing =
 const status =
     document.getElementById("status");
 
-const settingsOverlay =
-    document.getElementById("settingsOverlay");
+const overlay =
+    document.getElementById("overlay");
 
-const apiKeyInput =
-    document.getElementById("apiKeyInput");
+const keyInput =
+    document.getElementById("keyInput");
 
 
-/*
-====================================================
- CONVERSATION
-====================================================
-*/
+/* =========================================
+   CHAT MEMORY
+========================================= */
 
 let conversation = [];
 
 
-/*
-====================================================
- STATUS
-====================================================
-*/
+/* =========================================
+   STATUS
+========================================= */
 
 function updateStatus() {
 
     if (GROQ_API_KEY) {
 
-        status.textContent =
-            "● API Ready";
-
-        status.style.color =
-            "#20a05a";
+        status.textContent = "● API Ready";
+        status.style.color = "#20a05a";
 
     } else {
 
-        status.textContent =
-            "● API Key Not Set";
+        status.textContent = "● API Key Not Set";
+        status.style.color = "#d97706";
 
-        status.style.color =
-            "#d97706";
     }
 }
 
 updateStatus();
 
 
-/*
-====================================================
- SETTINGS
-====================================================
-*/
+/* =========================================
+   SETTINGS
+========================================= */
 
 function openSettings() {
 
-    apiKeyInput.value = GROQ_API_KEY;
+    keyInput.value = "";
 
-    settingsOverlay.style.display =
-        "flex";
+    overlay.style.display = "flex";
 
-    apiKeyInput.focus();
+    keyInput.focus();
 }
 
 
 function closeSettings() {
 
-    settingsOverlay.style.display =
-        "none";
+    overlay.style.display = "none";
 }
 
 
-function saveApiKey() {
+function saveKey() {
 
     const key =
-        apiKeyInput.value.trim();
+        keyInput.value.trim();
 
     if (!key) {
 
@@ -583,7 +539,6 @@ function saveApiKey() {
         return;
     }
 
-
     GROQ_API_KEY = key;
 
     sessionStorage.setItem(
@@ -591,49 +546,38 @@ function saveApiKey() {
         key
     );
 
-
     updateStatus();
 
     closeSettings();
 
     addMessage(
         "bot",
-        "✅ API key saved for this browser session. You can now send a message."
+        "✅ API key saved. You can now chat with the AI."
     );
-
 }
 
 
-/*
-====================================================
- CLOSE SETTINGS WHEN CLICKING OUTSIDE
-====================================================
-*/
+/* =========================================
+   CLOSE MODAL
+========================================= */
 
-settingsOverlay.addEventListener(
+overlay.addEventListener(
     "click",
     function(event) {
 
-        if (
-            event.target ===
-            settingsOverlay
-        ) {
-
+        if (event.target === overlay) {
             closeSettings();
-
         }
 
     }
 );
 
 
-/*
-====================================================
- ENTER KEY
-====================================================
-*/
+/* =========================================
+   ENTER KEY
+========================================= */
 
-userInput.addEventListener(
+input.addEventListener(
     "keydown",
     function(event) {
 
@@ -649,17 +593,14 @@ userInput.addEventListener(
 );
 
 
-/*
-====================================================
- SEND MESSAGE
-====================================================
-*/
+/* =========================================
+   SEND MESSAGE
+========================================= */
 
 async function sendMessage() {
 
     const text =
-        userInput.value.trim();
-
+        input.value.trim();
 
     if (!text) {
         return;
@@ -684,20 +625,16 @@ async function sendMessage() {
         text
     );
 
-
-    userInput.value = "";
+    input.value = "";
 
 
     conversation.push({
-
         role: "user",
-
         content: text
-
     });
 
 
-    sendButton.disabled = true;
+    send.disabled = true;
 
     typing.classList.add("show");
 
@@ -706,20 +643,17 @@ async function sendMessage() {
 
         const response =
             await fetch(
-                GROQ_API_URL,
+                API_URL,
                 {
-
                     method: "POST",
 
                     headers: {
-
                         "Content-Type":
                             "application/json",
 
                         "Authorization":
                             "Bearer " +
                             GROQ_API_KEY
-
                     },
 
                     body:
@@ -733,7 +667,7 @@ async function sendMessage() {
                                     role: "system",
 
                                     content:
-                                        "You are a helpful, friendly AI assistant. Answer clearly, accurately and concisely."
+                                        "You are a helpful AI assistant. Answer clearly, accurately and naturally."
                                 },
 
                                 ...conversation
@@ -743,27 +677,13 @@ async function sendMessage() {
                             temperature: 0.7,
 
                             max_tokens: 2048
-
                         })
-
                 }
             );
 
 
-        let data;
-
-        try {
-
-            data =
-                await response.json();
-
-        } catch {
-
-            throw new Error(
-                "The API returned an invalid response."
-            );
-
-        }
+        const data =
+            await response.json();
 
 
         if (!response.ok) {
@@ -772,7 +692,6 @@ async function sendMessage() {
                 data?.error?.message ||
                 "Groq API request failed."
             );
-
         }
 
 
@@ -783,18 +702,14 @@ async function sendMessage() {
         if (!answer) {
 
             throw new Error(
-                "The AI returned an empty response."
+                "The AI returned no response."
             );
-
         }
 
 
         conversation.push({
-
             role: "assistant",
-
             content: answer
-
         });
 
 
@@ -806,11 +721,7 @@ async function sendMessage() {
 
     } catch (error) {
 
-        console.error(
-            "Groq error:",
-            error
-        );
-
+        console.error(error);
 
         addMessage(
             "bot",
@@ -822,18 +733,15 @@ async function sendMessage() {
 
     typing.classList.remove("show");
 
-    sendButton.disabled = false;
+    send.disabled = false;
 
-    userInput.focus();
-
+    input.focus();
 }
 
 
-/*
-====================================================
- ADD MESSAGE
-====================================================
-*/
+/* =========================================
+   ADD MESSAGE
+========================================= */
 
 function addMessage(
     sender,
@@ -843,7 +751,6 @@ function addMessage(
     const message =
         document.createElement("div");
 
-
     message.className =
         "message " + sender;
 
@@ -851,10 +758,8 @@ function addMessage(
     const avatar =
         document.createElement("div");
 
-
     avatar.className =
         "avatar";
-
 
     avatar.textContent =
         sender === "user"
@@ -865,23 +770,15 @@ function addMessage(
     const content =
         document.createElement("div");
 
-
     content.className =
-        "message-content";
+        "content";
 
 
     const bubble =
         document.createElement("div");
 
-
     bubble.className =
         "bubble";
-
-
-    /*
-    textContent prevents AI output
-    from being interpreted as HTML.
-    */
 
     bubble.textContent =
         text;
@@ -890,10 +787,8 @@ function addMessage(
     const time =
         document.createElement("div");
 
-
     time.className =
         "time";
-
 
     time.textContent =
         new Date().toLocaleTimeString(
@@ -905,62 +800,41 @@ function addMessage(
         );
 
 
-    content.appendChild(
-        bubble
-    );
+    content.appendChild(bubble);
+    content.appendChild(time);
 
-    content.appendChild(
-        time
-    );
+    message.appendChild(avatar);
+    message.appendChild(content);
 
+    chat.appendChild(message);
 
-    message.appendChild(
-        avatar
-    );
-
-    message.appendChild(
-        content
-    );
-
-
-    messages.appendChild(
-        message
-    );
-
-
-    messages.scrollTop =
-        messages.scrollHeight;
+    chat.scrollTop =
+        chat.scrollHeight;
 }
 
 
-/*
-====================================================
- CLEAR CHAT
-====================================================
-*/
+/* =========================================
+   CLEAR CHAT
+========================================= */
 
 function clearChat() {
 
     conversation = [];
 
-    messages.innerHTML = "";
-
+    chat.innerHTML = "";
 
     addMessage(
         "bot",
         "Chat cleared! 👋\n\nHow can I help you?"
     );
-
 }
 
 
-/*
-====================================================
- START
-====================================================
-*/
+/* =========================================
+   START
+========================================= */
 
-userInput.focus();
+input.focus();
 
 </script>
 
