@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Chatbot</title>
+<title>My AI Chatbot</title>
 
 <style>
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #667eea, #764ba2);
     height: 100vh;
@@ -32,14 +33,13 @@ body {
     box-shadow: 0 20px 60px rgba(0,0,0,.3);
 }
 
-/* Header */
+/* HEADER */
 .header {
-    background: #ffffff;
-    border-bottom: 1px solid #eee;
     padding: 15px 20px;
+    border-bottom: 1px solid #eee;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
 
 .logo-area {
@@ -54,8 +54,8 @@ body {
     border-radius: 50%;
     background: linear-gradient(135deg,#667eea,#764ba2);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     font-size: 22px;
 }
 
@@ -70,19 +70,24 @@ body {
     margin-top: 3px;
 }
 
-.clear-btn {
+.header-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.header-btn {
     border: 0;
     background: #f1f3f5;
-    padding: 10px 14px;
+    padding: 10px 12px;
     border-radius: 10px;
     cursor: pointer;
 }
 
-.clear-btn:hover {
+.header-btn:hover {
     background: #e5e7eb;
 }
 
-/* Messages */
+/* CHAT */
 .messages {
     flex: 1;
     overflow-y: auto;
@@ -154,7 +159,7 @@ body {
     margin-top: 5px;
 }
 
-/* Typing */
+/* TYPING */
 .typing {
     display: none;
     padding: 8px 25px;
@@ -167,22 +172,21 @@ body {
     display: block;
 }
 
-/* Input */
+/* INPUT */
 .input-area {
     padding: 15px;
     border-top: 1px solid #eee;
     display: flex;
     gap: 10px;
-    background: white;
 }
 
 .input {
     flex: 1;
+    height: 50px;
     border: 1px solid #ddd;
     outline: none;
     border-radius: 25px;
     padding: 0 18px;
-    height: 50px;
     font-size: 15px;
 }
 
@@ -210,7 +214,75 @@ body {
     cursor: not-allowed;
 }
 
-/* Mobile */
+/* SETTINGS */
+.settings-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.settings-box {
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+
+.settings-box h2 {
+    margin-bottom: 10px;
+}
+
+.settings-box p {
+    color: #666;
+    line-height: 1.5;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.api-input {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 0 12px;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+.api-input:focus {
+    border-color: #667eea;
+}
+
+.settings-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.save-btn,
+.close-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.save-btn {
+    background: #667eea;
+    color: white;
+}
+
+.close-btn {
+    background: #eee;
+}
+
+/* MOBILE */
 @media (max-width: 600px) {
 
     body {
@@ -246,19 +318,35 @@ body {
 
             <div>
                 <div class="title">My AI Chatbot</div>
-                <div class="status">● Online</div>
+                <div class="status" id="status">
+                    ● API Key Not Set
+                </div>
             </div>
 
         </div>
 
-        <button class="clear-btn" onclick="clearChat()">
-            🗑️ Clear
-        </button>
+        <div class="header-buttons">
+
+            <button
+                class="header-btn"
+                onclick="openSettings()">
+                ⚙️
+            </button>
+
+            <button
+                class="header-btn"
+                onclick="clearChat()">
+                🗑️
+            </button>
+
+        </div>
 
     </div>
 
 
-    <div class="messages" id="messages">
+    <div
+        class="messages"
+        id="messages">
 
         <div class="message bot">
 
@@ -268,9 +356,13 @@ body {
 
                 <div class="bubble">Hello! 👋
 
-I'm your AI assistant. Ask me anything!</div>
+I'm your AI assistant powered by Groq.
 
-                <div class="time">Now</div>
+Click ⚙️ to enter your API key, then ask me anything!</div>
+
+                <div class="time">
+                    Now
+                </div>
 
             </div>
 
@@ -279,8 +371,12 @@ I'm your AI assistant. Ask me anything!</div>
     </div>
 
 
-    <div class="typing" id="typing">
+    <div
+        class="typing"
+        id="typing">
+
         🤖 AI is thinking...
+
     </div>
 
 
@@ -291,16 +387,63 @@ I'm your AI assistant. Ask me anything!</div>
             class="input"
             type="text"
             placeholder="Type your message..."
-            autocomplete="off"
-        >
+            autocomplete="off">
 
         <button
             id="sendButton"
             class="send-btn"
-            onclick="sendMessage()"
-        >
+            onclick="sendMessage()">
+
             ➤
+
         </button>
+
+    </div>
+
+</div>
+
+
+<!-- SETTINGS -->
+
+<div
+    class="settings-overlay"
+    id="settingsOverlay">
+
+    <div class="settings-box">
+
+        <h2>⚙️ API Settings</h2>
+
+        <p>
+            Enter your Groq API key. It is kept in this
+            browser session and is not written into the
+            HTML source.
+        </p>
+
+        <input
+            id="apiKeyInput"
+            class="api-input"
+            type="password"
+            placeholder="gsk_...">
+
+        <div class="settings-buttons">
+
+            <button
+                class="save-btn"
+                onclick="saveApiKey()">
+
+                Save Key
+
+            </button>
+
+            <button
+                class="close-btn"
+                onclick="closeSettings()">
+
+                Cancel
+
+            </button>
+
+        </div>
 
     </div>
 
@@ -311,26 +454,31 @@ I'm your AI assistant. Ask me anything!</div>
 
 /*
 ====================================================
- GROQ API CONFIG
-====================================================
-
-IMPORTANT:
-The API key you previously posted should be revoked.
-
-Create a NEW key and put it below.
-
-DO NOT publish a real API key in a public
-GitHub Pages repository.
+ GROQ CONFIGURATION
 ====================================================
 */
-
-const GROQ_API_KEY = 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;
 
 const GROQ_API_URL =
     "https://api.groq.com/openai/v1/chat/completions";
 
 const MODEL =
     "llama-3.3-70b-versatile";
+
+
+/*
+====================================================
+ API KEY
+====================================================
+
+The key is entered through the Settings button.
+
+We intentionally do NOT hard-code the exposed key
+you previously posted.
+====================================================
+*/
+
+let GROQ_API_KEY =
+    sessionStorage.getItem("groq_api_key") || "";
 
 
 /*
@@ -351,10 +499,19 @@ const sendButton =
 const typing =
     document.getElementById("typing");
 
+const status =
+    document.getElementById("status");
+
+const settingsOverlay =
+    document.getElementById("settingsOverlay");
+
+const apiKeyInput =
+    document.getElementById("apiKeyInput");
+
 
 /*
 ====================================================
- CONVERSATION MEMORY
+ CONVERSATION
 ====================================================
 */
 
@@ -363,21 +520,133 @@ let conversation = [];
 
 /*
 ====================================================
+ STATUS
+====================================================
+*/
+
+function updateStatus() {
+
+    if (GROQ_API_KEY) {
+
+        status.textContent =
+            "● API Ready";
+
+        status.style.color =
+            "#20a05a";
+
+    } else {
+
+        status.textContent =
+            "● API Key Not Set";
+
+        status.style.color =
+            "#d97706";
+    }
+}
+
+updateStatus();
+
+
+/*
+====================================================
+ SETTINGS
+====================================================
+*/
+
+function openSettings() {
+
+    apiKeyInput.value = GROQ_API_KEY;
+
+    settingsOverlay.style.display =
+        "flex";
+
+    apiKeyInput.focus();
+}
+
+
+function closeSettings() {
+
+    settingsOverlay.style.display =
+        "none";
+}
+
+
+function saveApiKey() {
+
+    const key =
+        apiKeyInput.value.trim();
+
+    if (!key) {
+
+        alert("Please enter your Groq API key.");
+
+        return;
+    }
+
+
+    GROQ_API_KEY = key;
+
+    sessionStorage.setItem(
+        "groq_api_key",
+        key
+    );
+
+
+    updateStatus();
+
+    closeSettings();
+
+    addMessage(
+        "bot",
+        "✅ API key saved for this browser session. You can now send a message."
+    );
+
+}
+
+
+/*
+====================================================
+ CLOSE SETTINGS WHEN CLICKING OUTSIDE
+====================================================
+*/
+
+settingsOverlay.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            settingsOverlay
+        ) {
+
+            closeSettings();
+
+        }
+
+    }
+);
+
+
+/*
+====================================================
  ENTER KEY
 ====================================================
 */
 
-userInput.addEventListener("keydown", function(event) {
+userInput.addEventListener(
+    "keydown",
+    function(event) {
 
-    if (event.key === "Enter") {
+        if (event.key === "Enter") {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        sendMessage();
+            sendMessage();
+
+        }
 
     }
-
-});
+);
 
 
 /*
@@ -391,32 +660,40 @@ async function sendMessage() {
     const text =
         userInput.value.trim();
 
+
     if (!text) {
         return;
     }
 
 
-    if (
-        GROQ_API_KEY === "YOUR_NEW_GROQ_API_KEY" ||
-        !GROQ_API_KEY
-    ) {
+    if (!GROQ_API_KEY) {
 
         addMessage(
             "bot",
-            "⚠️ Please add your new Groq API key inside the code first."
+            "⚠️ Please click ⚙️ and enter your Groq API key first."
         );
+
+        openSettings();
 
         return;
     }
 
 
-    addMessage("user", text);
+    addMessage(
+        "user",
+        text
+    );
+
 
     userInput.value = "";
 
+
     conversation.push({
+
         role: "user",
+
         content: text
+
     });
 
 
@@ -431,45 +708,62 @@ async function sendMessage() {
             await fetch(
                 GROQ_API_URL,
                 {
+
                     method: "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json",
 
                         "Authorization":
                             "Bearer " +
                             GROQ_API_KEY
+
                     },
 
-                    body: JSON.stringify({
+                    body:
+                        JSON.stringify({
 
-                        model: MODEL,
+                            model: MODEL,
 
-                        messages: [
+                            messages: [
 
-                            {
-                                role: "system",
+                                {
+                                    role: "system",
 
-                                content:
-                                    "You are a helpful, friendly AI assistant. Answer clearly, accurately and concisely."
-                            },
+                                    content:
+                                        "You are a helpful, friendly AI assistant. Answer clearly, accurately and concisely."
+                                },
 
-                            ...conversation
+                                ...conversation
 
-                        ],
+                            ],
 
-                        temperature: 0.7,
+                            temperature: 0.7,
 
-                        max_tokens: 2048
+                            max_tokens: 2048
 
-                    })
+                        })
+
                 }
             );
 
 
-        const data =
-            await response.json();
+        let data;
+
+        try {
+
+            data =
+                await response.json();
+
+        } catch {
+
+            throw new Error(
+                "The API returned an invalid response."
+            );
+
+        }
 
 
         if (!response.ok) {
@@ -489,15 +783,18 @@ async function sendMessage() {
         if (!answer) {
 
             throw new Error(
-                "No response was returned by the AI."
+                "The AI returned an empty response."
             );
 
         }
 
 
         conversation.push({
+
             role: "assistant",
+
             content: answer
+
         });
 
 
@@ -509,11 +806,15 @@ async function sendMessage() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Groq error:",
+            error
+        );
+
 
         addMessage(
             "bot",
-            "❌ Error: " + error.message
+            "❌ " + error.message
         );
 
     }
@@ -542,6 +843,7 @@ function addMessage(
     const message =
         document.createElement("div");
 
+
     message.className =
         "message " + sender;
 
@@ -549,8 +851,10 @@ function addMessage(
     const avatar =
         document.createElement("div");
 
+
     avatar.className =
         "avatar";
+
 
     avatar.textContent =
         sender === "user"
@@ -561,6 +865,7 @@ function addMessage(
     const content =
         document.createElement("div");
 
+
     content.className =
         "message-content";
 
@@ -568,8 +873,15 @@ function addMessage(
     const bubble =
         document.createElement("div");
 
+
     bubble.className =
         "bubble";
+
+
+    /*
+    textContent prevents AI output
+    from being interpreted as HTML.
+    */
 
     bubble.textContent =
         text;
@@ -578,8 +890,10 @@ function addMessage(
     const time =
         document.createElement("div");
 
+
     time.className =
         "time";
+
 
     time.textContent =
         new Date().toLocaleTimeString(
@@ -591,15 +905,27 @@ function addMessage(
         );
 
 
-    content.appendChild(bubble);
+    content.appendChild(
+        bubble
+    );
 
-    content.appendChild(time);
+    content.appendChild(
+        time
+    );
 
-    message.appendChild(avatar);
 
-    message.appendChild(content);
+    message.appendChild(
+        avatar
+    );
 
-    messages.appendChild(message);
+    message.appendChild(
+        content
+    );
+
+
+    messages.appendChild(
+        message
+    );
 
 
     messages.scrollTop =
@@ -618,6 +944,7 @@ function clearChat() {
     conversation = [];
 
     messages.innerHTML = "";
+
 
     addMessage(
         "bot",
