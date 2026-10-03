@@ -4,11 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>My Groq AI Chatbot</title>
+<title>My AI Chatbot</title>
 
 <style>
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -16,20 +14,19 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    min-height: 100vh;
+    font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
+    justify-content: center;
 }
 
 .app {
     width: 100%;
     max-width: 900px;
-    height: 90vh;
-    background: #ffffff;
+    height: 92vh;
+    background: #fff;
     border-radius: 22px;
     overflow: hidden;
     display: flex;
@@ -37,36 +34,31 @@ body {
     box-shadow: 0 25px 70px rgba(0,0,0,.25);
 }
 
-/* HEADER */
-
+/* Header */
 .header {
-    height: 75px;
-    padding: 12px 20px;
-    border-bottom: 1px solid #eee;
-
+    height: 72px;
+    padding: 10px 18px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
 }
 
-.header-left {
+.brand {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
 .logo {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
-
     background: linear-gradient(135deg,#667eea,#764ba2);
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    font-size: 24px;
+    font-size: 23px;
 }
 
 .title {
@@ -74,27 +66,22 @@ body {
     font-weight: bold;
 }
 
-.status {
-    margin-top: 4px;
+.online {
     color: #22a05a;
     font-size: 12px;
+    margin-top: 3px;
 }
 
-.clear-btn {
+.clear {
     border: none;
     background: #f1f3f5;
-    border-radius: 10px;
     padding: 10px 12px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
 }
 
-.clear-btn:hover {
-    background: #e5e7eb;
-}
-
-/* CHAT */
-
+/* Chat */
 .chat {
     flex: 1;
     overflow-y: auto;
@@ -118,72 +105,56 @@ body {
     width: 38px;
     height: 38px;
     min-width: 38px;
-
     border-radius: 50%;
-
     background: #667eea;
-
     display: flex;
-    justify-content: center;
     align-items: center;
-
-    font-size: 18px;
+    justify-content: center;
 }
 
-.message-content {
+.content {
     display: flex;
     flex-direction: column;
 }
 
-.user .message-content {
+.user .content {
     align-items: flex-end;
 }
 
 .bubble {
     padding: 13px 17px;
-
     border-radius: 17px;
-
-    font-size: 15px;
     line-height: 1.55;
-
-    word-break: break-word;
+    font-size: 15px;
     white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .bot .bubble {
     background: white;
     color: #222;
-
     border-top-left-radius: 4px;
-
     box-shadow: 0 2px 10px rgba(0,0,0,.05);
 }
 
 .user .bubble {
     background: #667eea;
     color: white;
-
     border-top-right-radius: 4px;
 }
 
 .time {
-    margin-top: 5px;
-    font-size: 10px;
     color: #999;
+    font-size: 10px;
+    margin-top: 5px;
 }
 
-/* TYPING */
-
+/* Typing */
 .typing {
     display: none;
-
-    padding: 10px 25px;
-
+    padding: 9px 25px;
     background: #f6f7fb;
-
     color: #777;
-
     font-size: 13px;
 }
 
@@ -191,31 +162,22 @@ body {
     display: block;
 }
 
-/* INPUT */
-
+/* Input */
 .input-area {
     display: flex;
     gap: 10px;
-
     padding: 15px;
-
     border-top: 1px solid #eee;
 }
 
 .input {
     flex: 1;
-
     height: 50px;
-
     border: 1px solid #ddd;
-
     border-radius: 25px;
-
     padding: 0 18px;
-
-    font-size: 15px;
-
     outline: none;
+    font-size: 15px;
 }
 
 .input:focus {
@@ -225,22 +187,12 @@ body {
 .send {
     width: 50px;
     height: 50px;
-
     border: none;
-
     border-radius: 50%;
-
     background: #667eea;
-
     color: white;
-
-    font-size: 21px;
-
+    font-size: 20px;
     cursor: pointer;
-}
-
-.send:hover {
-    background: #5568d9;
 }
 
 .send:disabled {
@@ -248,10 +200,7 @@ body {
     cursor: not-allowed;
 }
 
-/* MOBILE */
-
 @media(max-width:600px) {
-
     body {
         padding: 0;
     }
@@ -268,9 +217,7 @@ body {
     .message {
         max-width: 94%;
     }
-
 }
-
 </style>
 </head>
 
@@ -278,67 +225,41 @@ body {
 
 <div class="app">
 
-    <!-- HEADER -->
-
     <header class="header">
 
-        <div class="header-left">
+        <div class="brand">
 
-            <div class="logo">
-                🤖
-            </div>
+            <div class="logo">🤖</div>
 
             <div>
-
-                <div class="title">
-                    My Groq AI
-                </div>
-
-                <div class="status">
-                    ● AI Assistant
-                </div>
-
+                <div class="title">My AI Chatbot</div>
+                <div class="online">● Groq AI</div>
             </div>
 
         </div>
 
-        <button
-            class="clear-btn"
-            onclick="clearChat()"
-            title="Clear chat"
-        >
+        <button class="clear" onclick="clearChat()">
             🗑️
         </button>
 
     </header>
 
 
-    <!-- CHAT -->
-
-    <main
-        class="chat"
-        id="chat"
-    >
+    <main class="chat" id="chat">
 
         <div class="message bot">
 
-            <div class="avatar">
-                🤖
-            </div>
+            <div class="avatar">🤖</div>
 
-            <div class="message-content">
+            <div class="content">
 
-                <div class="bubble">
-                    Hello! 👋
+                <div class="bubble">Hello! 👋
 
-                    I'm your AI assistant powered by Groq.
+I'm your AI assistant powered by Groq.
 
-                    Ask me anything!
-                </div>
+Ask me anything!</div>
 
-                <div class="time">
-                    Now
-                </div>
+                <div class="time">Now</div>
 
             </div>
 
@@ -347,17 +268,10 @@ body {
     </main>
 
 
-    <!-- TYPING -->
-
-    <div
-        class="typing"
-        id="typing"
-    >
+    <div class="typing" id="typing">
         🤖 AI is thinking...
     </div>
 
-
-    <!-- INPUT -->
 
     <div class="input-area">
 
@@ -386,34 +300,25 @@ body {
 
 /*
 ==================================================
- IMPORTANT
+ GROQ CONFIGURATION
 ==================================================
 
-DO NOT publish your real API key in GitHub.
+IMPORTANT:
+Do NOT use the keys you already posted.
 
-Anyone can inspect this file and obtain the key.
+Create/rotate a NEW Groq key and put it below
+ONLY for local testing.
 
-For a temporary private test, replace the
-placeholder below with a NEW rotated key.
-
-For a real public GitHub Pages website,
-use a backend/proxy instead.
-==================================================
-*/
-
-
-const GROQ_API_KEY = "YOUR_NEW_GROQ_API_KEY";
-
-
-/*
-==================================================
- SETTINGS
+A key inside a public GitHub Pages file can
+be copied by anyone.
 ==================================================
 */
+
+const GROQ_API_KEY = "PASTE_NEW_KEY_HERE";
 
 const MODEL = "llama-3.3-70b-versatile";
 
-const API_URL =
+const GROQ_URL =
     "https://api.groq.com/openai/v1/chat/completions";
 
 
@@ -451,14 +356,11 @@ let conversation = [];
 ==================================================
 */
 
-input.addEventListener("keydown", function(event) {
+input.addEventListener("keydown", function(e) {
 
-    if (event.key === "Enter") {
-
-        event.preventDefault();
-
+    if (e.key === "Enter") {
+        e.preventDefault();
         sendMessage();
-
     }
 
 });
@@ -472,58 +374,35 @@ input.addEventListener("keydown", function(event) {
 
 async function sendMessage() {
 
-    const text =
-        input.value.trim();
+    const text = input.value.trim();
 
-
-    if (!text) {
-        return;
-    }
+    if (!text) return;
 
 
     if (
-        !GROQ_API_KEY ||
-        GROQ_API_KEY === "YOUR_NEW_GROQ_API_KEY"
+        GROQ_API_KEY === "" ||
+        GROQ_API_KEY === "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"
     ) {
 
         addMessage(
             "bot",
-            "⚠️ Please add your Groq API key in the JavaScript section first."
+            "⚠️ Add your new Groq API key to GROQ_API_KEY first."
         );
 
         return;
     }
 
 
-    /*
-    Add user message
-    */
-
-    addMessage(
-        "user",
-        text
-    );
-
+    addMessage("user", text);
 
     input.value = "";
 
 
-    /*
-    Add to conversation
-    */
-
     conversation.push({
-
         role: "user",
-
         content: text
-
     });
 
-
-    /*
-    UI
-    */
 
     send.disabled = true;
 
@@ -532,142 +411,92 @@ async function sendMessage() {
 
     try {
 
-        /*
-        Call Groq
-        */
+        const response = await fetch(
+            GROQ_URL,
+            {
+                method: "POST",
 
-        const response =
-            await fetch(
-                API_URL,
-                {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization":
+                        "Bearer " + GROQ_API_KEY
+                },
 
-                    method: "POST",
+                body: JSON.stringify({
 
-                    headers: {
+                    model: MODEL,
 
-                        "Content-Type":
-                            "application/json",
+                    messages: [
+                        {
+                            role: "system",
+                            content:
+                                "You are a helpful, friendly AI assistant. Answer clearly and accurately. Use plain text and simple formatting."
+                        },
 
-                        "Authorization":
-                            "Bearer " +
-                            GROQ_API_KEY
+                        ...conversation
+                    ],
 
-                    },
+                    temperature: 0.7,
 
-                    body:
-                        JSON.stringify({
+                    max_tokens: 2048
 
-                            model: MODEL,
-
-                            messages: [
-
-                                {
-                                    role: "system",
-
-                                    content:
-                                        "You are a helpful, friendly and accurate AI assistant. Give clear answers and use simple formatting."
-                                },
-
-                                ...conversation
-
-                            ],
-
-                            temperature: 0.7,
-
-                            max_tokens: 2048
-
-                        })
-
-                }
-            );
+                })
+            }
+        );
 
 
-        /*
-        Read response
-        */
-
-        const data =
-            await response.json();
+        const data = await response.json();
 
 
         if (!response.ok) {
 
-            console.error(
-                "Groq error:",
-                data
-            );
-
             throw new Error(
                 data?.error?.message ||
-                "Groq API request failed"
+                "Groq API request failed."
             );
 
         }
 
 
-        /*
-        Get AI response
-        */
-
-        const reply =
+        const answer =
             data?.choices?.[0]?.message?.content;
 
 
-        if (!reply) {
+        if (!answer) {
 
             throw new Error(
-                "No response received from Groq."
+                "The AI returned an empty response."
             );
 
         }
 
 
-        /*
-        Save assistant response
-        */
-
         conversation.push({
-
             role: "assistant",
-
-            content: reply
-
+            content: answer
         });
 
 
-        /*
-        Show response
-        */
-
-        addMessage(
-            "bot",
-            reply
-        );
+        addMessage("bot", answer);
 
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(error);
 
         addMessage(
             "bot",
-            "❌ Error: " +
-            error.message
+            "❌ " + error.message
         );
 
     }
 
-    finally {
 
-        typing.classList.remove("show");
+    typing.classList.remove("show");
 
-        send.disabled = false;
+    send.disabled = false;
 
-        input.focus();
-
-    }
+    input.focus();
 
 }
 
@@ -678,29 +507,19 @@ async function sendMessage() {
 ==================================================
 */
 
-function addMessage(
-    sender,
-    text
-) {
+function addMessage(sender, text) {
 
     const message =
         document.createElement("div");
 
-
     message.className =
-        "message " +
-        sender;
+        "message " + sender;
 
-
-    /*
-    Avatar
-    */
 
     const avatar =
         document.createElement("div");
 
-    avatar.className =
-        "avatar";
+    avatar.className = "avatar";
 
     avatar.textContent =
         sender === "user"
@@ -708,50 +527,32 @@ function addMessage(
         : "🤖";
 
 
-    /*
-    Content
-    */
-
     const content =
         document.createElement("div");
 
-    content.className =
-        "message-content";
+    content.className = "content";
 
-
-    /*
-    Bubble
-    */
 
     const bubble =
         document.createElement("div");
 
-    bubble.className =
-        "bubble";
-
+    bubble.className = "bubble";
 
     /*
-    textContent prevents
-    arbitrary HTML injection.
+    textContent is used instead of innerHTML
+    so AI output cannot inject arbitrary HTML.
     */
 
-    bubble.textContent =
-        text;
+    bubble.textContent = text;
 
-
-    /*
-    Time
-    */
 
     const time =
         document.createElement("div");
 
-    time.className =
-        "time";
+    time.className = "time";
 
     time.textContent =
-        new Date()
-        .toLocaleTimeString(
+        new Date().toLocaleTimeString(
             [],
             {
                 hour: "2-digit",
@@ -760,34 +561,14 @@ function addMessage(
         );
 
 
-    /*
-    Build
-    */
+    content.appendChild(bubble);
+    content.appendChild(time);
 
-    content.appendChild(
-        bubble
-    );
+    message.appendChild(avatar);
+    message.appendChild(content);
 
-    content.appendChild(
-        time
-    );
+    chat.appendChild(message);
 
-    message.appendChild(
-        avatar
-    );
-
-    message.appendChild(
-        content
-    );
-
-    chat.appendChild(
-        message
-    );
-
-
-    /*
-    Scroll
-    */
 
     chat.scrollTop =
         chat.scrollHeight;
@@ -807,10 +588,9 @@ function clearChat() {
 
     chat.innerHTML = "";
 
-
     addMessage(
         "bot",
-        "Chat cleared! 👋 Ask me anything."
+        "Chat cleared! 👋\n\nHow can I help you?"
     );
 
 }
@@ -818,7 +598,7 @@ function clearChat() {
 
 /*
 ==================================================
- INITIAL FOCUS
+ START
 ==================================================
 */
 
